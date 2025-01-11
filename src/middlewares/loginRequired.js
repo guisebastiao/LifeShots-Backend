@@ -6,8 +6,6 @@ export default async (req, res, next) => {
     const { token } = req.headers;
 
     if (!token) {
-      res.setHeader("authenticated", false);
-
       return res.status(401).json({
         errors: ["Você precisa fazer o login."],
       });
@@ -20,8 +18,6 @@ export default async (req, res, next) => {
     });
 
     if (!user) {
-      res.setHeader("authenticated", false);
-
       return res.status(401).json({
         errors: ["Você precisa fazer o login."],
       });
@@ -30,12 +26,8 @@ export default async (req, res, next) => {
     req.username = username;
     req.email = email;
 
-    res.setHeader("authenticated", true);
-
     return next();
   } catch (error) {
-    res.setHeader("authenticated", false);
-
     return res.status(401).json({
       errors: ["Sessão expirada, faça seu login"],
     });
