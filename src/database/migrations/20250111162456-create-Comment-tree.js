@@ -3,7 +3,7 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("CommentTree", {
+    await queryInterface.createTable("commentTree", {
       id: {
         type: Sequelize.UUID,
         primaryKey: true,
@@ -61,6 +61,6 @@ module.exports = {
   },
 
   async down(queryInterface) {
-    await queryInterface.dropTable("CommentTree");
+    await queryInterface.dropTable("commentTree");
   },
 };

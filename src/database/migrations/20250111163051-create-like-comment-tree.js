@@ -24,7 +24,7 @@ module.exports = {
         type: Sequelize.UUID,
         allowNull: false,
         references: {
-          model: "CommentTree",
+          model: "commentTree",
           key: "id",
         },
         onUpdate: "CASCADE",
