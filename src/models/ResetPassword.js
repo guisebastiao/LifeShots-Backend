@@ -32,4 +32,11 @@ export default class ResetPassword extends Model {
 
     return this;
   }
+
+  static associate(models) {
+    this.belongsTo(models.User, {
+      foreignKey: "tokenId",
+      as: "resetPassword",
+    });
+  }
 }

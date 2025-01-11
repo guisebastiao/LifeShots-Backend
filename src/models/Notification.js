@@ -47,4 +47,16 @@ export default class Notification extends Model {
 
     return this;
   }
+
+  static associate(models) {
+    this.belongsTo(models.User, {
+      foreignKey: "recipientId",
+      as: "recipient",
+    });
+
+    this.belongsTo(models.User, {
+      foreignKey: "senderId",
+      as: "sender",
+    });
+  }
 }

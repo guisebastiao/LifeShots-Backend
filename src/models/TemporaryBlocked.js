@@ -27,4 +27,11 @@ export default class TemporaryBlocked extends Model {
 
     return this;
   }
+
+  static associate(models) {
+    this.belongsTo(models.User, {
+      foreignKey: "userId",
+      as: "temporaryBlock",
+    });
+  }
 }

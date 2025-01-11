@@ -38,4 +38,16 @@ export default class LikeComment extends Model {
 
     return this;
   }
+
+  static associate(models) {
+    this.belongsTo(models.User, {
+      foreignKey: "userId",
+      as: "userLikedComment",
+    });
+
+    this.belongsTo(models.CommentPost, {
+      foreignKey: "commentId",
+      as: "likes",
+    });
+  }
 }

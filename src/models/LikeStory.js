@@ -38,4 +38,16 @@ export default class LikeStory extends Model {
 
     return this;
   }
+
+  static associate(models) {
+    this.belongsTo(models.User, {
+      foreignKey: "userId",
+      as: "userLikedStory",
+    });
+
+    this.belongsTo(models.Story, {
+      foreignKey: "storyId",
+      as: "likes",
+    });
+  }
 }

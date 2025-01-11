@@ -36,4 +36,11 @@ export default class StoryImage extends Model {
 
     return this;
   }
+
+  static associate(models) {
+    this.belongsTo(models.Story, {
+      foreignKey: "storyId",
+      as: "storyImages",
+    });
+  }
 }

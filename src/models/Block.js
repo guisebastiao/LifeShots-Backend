@@ -38,4 +38,16 @@ export default class Block extends Model {
 
     return this;
   }
+
+  static associate(models) {
+    this.belongsTo(models.User, {
+      foreignKey: "blockerId",
+      as: "blocker",
+    });
+
+    this.belongsTo(models.User, {
+      foreignKey: "blockedId",
+      as: "blocked",
+    });
+  }
 }

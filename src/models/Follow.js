@@ -38,4 +38,16 @@ export default class Follow extends Model {
 
     return this;
   }
+
+  static associate(models) {
+    this.belongsTo(models.User, {
+      foreignKey: "followingId",
+      as: "following",
+    });
+
+    this.belongsTo(models.User, {
+      foreignKey: "followerId",
+      as: "followers",
+    });
+  }
 }

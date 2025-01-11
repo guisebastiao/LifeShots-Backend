@@ -41,4 +41,21 @@ export default class Story extends Model {
 
     return this;
   }
+
+  static associate(models) {
+    this.belongsTo(models.User, {
+      foreignKey: "userId",
+      as: "author",
+    });
+
+    this.hasMany(models.StoryImage, {
+      foreignKey: "id",
+      as: "storyImages",
+    });
+
+    this.hasMany(models.LikeStory, {
+      foreignKey: "id",
+      as: "likes",
+    });
+  }
 }

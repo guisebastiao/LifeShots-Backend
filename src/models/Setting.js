@@ -59,4 +59,11 @@ export default class Setting extends Model {
 
     return this;
   }
+
+  static associate(models) {
+    this.belongsTo(models.User, {
+      foreignKey: "userId",
+      as: "settings",
+    });
+  }
 }

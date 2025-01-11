@@ -38,4 +38,16 @@ export default class LikeCommentTree extends Model {
 
     return this;
   }
+
+  static associate(models) {
+    this.belongsTo(models.User, {
+      foreignKey: "userId",
+      as: "userLikedCommentTree",
+    });
+
+    this.belongsTo(models.CommentSon, {
+      foreignKey: "commentTreeId",
+      as: "likes",
+    });
+  }
 }

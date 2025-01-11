@@ -57,4 +57,26 @@ export default class CommentTree extends Model {
 
     return this;
   }
+
+  static associate(models) {
+    this.belongsTo(models.User, {
+      foreignKey: "userId",
+      as: "userCommentsTree",
+    });
+
+    this.belongsTo(models.CommentPost, {
+      foreignKey: "commentId",
+      as: "commentTree",
+    });
+
+    this.belongsTo(models.Post, {
+      foreignKey: "postId",
+      as: "postCommentTree",
+    });
+
+    this.hasMany(models.LikeCommentSon, {
+      foreignKey: "id",
+      as: "likes",
+    });
+  }
 }

@@ -82,4 +82,96 @@ export default class User extends Model {
   passwordIsValid(password) {
     return bcrypt.compare(password, this.passwordHash);
   }
+
+  static associate(models) {
+    this.hasOne(models.TemporaryBlocked, {
+      foreignKey: "userId",
+      as: "temporaryBlock",
+    });
+
+    this.hasOne(models.Setting, {
+      foreignKey: "userId",
+      as: "settings",
+    });
+
+    this.hasOne(models.ProfilePicture, {
+      foreignKey: "userId",
+      as: "profilePicture",
+    });
+
+    this.hasOne(models.UserLogin, {
+      foreignKey: "tokenId",
+      as: "userLogin",
+    });
+
+    this.hasOne(models.ResetPassword, {
+      foreignKey: "tokenId",
+      as: "resetPassword",
+    });
+
+    this.hasMany(models.Block, {
+      foreignKey: "blockerId",
+      as: "blocker",
+    });
+
+    this.hasMany(models.Block, {
+      foreignKey: "blockedId",
+      as: "blocked",
+    });
+
+    this.hasMany(models.Follow, {
+      foreignKey: "followingId",
+      as: "following",
+    });
+
+    this.hasMany(models.Follow, {
+      foreignKey: "followerId",
+      as: "followers",
+    });
+
+    this.hasMany(models.Post, {
+      foreignKey: "userId",
+      as: "posts",
+    });
+
+    this.hasMany(models.LikePost, {
+      foreignKey: "userId",
+      as: "userLikedPost",
+    });
+
+    this.hasMany(models.CommentPost, {
+      foreignKey: "userId",
+      as: "comments",
+    });
+
+    this.hasMany(models.LikeComment, {
+      foreignKey: "userId",
+      as: "userLikedComment",
+    });
+
+    this.hasMany(models.CommentTree, {
+      foreignKey: "userId",
+      as: "userCommentsTree",
+    });
+
+    this.hasMany(models.Story, {
+      foreignKey: "userId",
+      as: "stories",
+    });
+
+    this.hasMany(models.LikeStory, {
+      foreignKey: "userId",
+      as: "userLikedStory",
+    });
+
+    this.hasMany(models.Notification, {
+      foreignKey: "recipientId",
+      as: "recipient",
+    });
+
+    this.hasMany(models.Notification, {
+      foreignKey: "senderId",
+      as: "sender",
+    });
+  }
 }

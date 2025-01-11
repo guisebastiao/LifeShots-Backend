@@ -36,4 +36,11 @@ export default class PostImage extends Model {
 
     return this;
   }
+
+  static associate(models) {
+    this.belongsTo(models.Post, {
+      foreignKey: "postId",
+      as: "post",
+    });
+  }
 }

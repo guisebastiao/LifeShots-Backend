@@ -42,4 +42,11 @@ export default class UserLogin extends Model {
 
     return this;
   }
+
+  static associate(models) {
+    this.belongsTo(models.User, {
+      foreignKey: "tokenId",
+      as: "userLogin",
+    });
+  }
 }

@@ -52,4 +52,26 @@ export default class CommentPost extends Model {
 
     return this;
   }
+
+  static associate(models) {
+    this.belongsTo(models.User, {
+      foreignKey: "userId",
+      as: "userComments",
+    });
+
+    this.belongsTo(models.Post, {
+      foreignKey: "postId",
+      as: "postComments",
+    });
+
+    this.hasMany(models.LikeComment, {
+      foreignKey: "id",
+      as: "likes",
+    });
+
+    this.hasMany(models.CommentTree, {
+      foreignKey: "id",
+      as: "commentTree",
+    });
+  }
 }
