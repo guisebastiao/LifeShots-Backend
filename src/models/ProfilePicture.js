@@ -42,7 +42,7 @@ export default class ProfilePicture extends Model {
   static associate(models) {
     this.belongsTo(models.User, {
       foreignKey: "userId",
-      as: "profilePicture",
+      as: "profilePictureUser",
     });
   }
 }

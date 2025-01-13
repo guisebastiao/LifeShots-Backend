@@ -45,7 +45,7 @@ export default class LikeCommentTree extends Model {
       as: "userLikedCommentTree",
     });
 
-    this.belongsTo(models.CommentSon, {
+    this.belongsTo(models.CommentTree, {
       foreignKey: "commentTreeId",
       as: "likes",
     });

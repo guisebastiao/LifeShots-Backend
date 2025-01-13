@@ -96,7 +96,7 @@ export default class User extends Model {
 
     this.hasOne(models.ProfilePicture, {
       foreignKey: "userId",
-      as: "profilePicture",
+      as: "profilePictureUser",
     });
 
     this.hasOne(models.UserLogin, {
