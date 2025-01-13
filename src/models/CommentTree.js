@@ -74,7 +74,7 @@ export default class CommentTree extends Model {
       as: "postCommentTree",
     });
 
-    this.hasMany(models.LikeCommentSon, {
+    this.hasMany(models.LikeCommentTree, {
       foreignKey: "id",
       as: "likes",
     });
