@@ -3,7 +3,9 @@ import User from "../models/User";
 
 export default async (req, res, next) => {
   try {
-    const { token } = req.headers;
+    const { authorization } = req.headers;
+
+    const [_, token] = authorization.split(" ");
 
     if (!token) {
       return res.status(401).json({
@@ -28,6 +30,7 @@ export default async (req, res, next) => {
 
     return next();
   } catch (error) {
+    console.log(error);
     return res.status(401).json({
       errors: ["Sessão expirada, faça seu login"],
     });
