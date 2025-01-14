@@ -8,7 +8,7 @@ class NotificationController {
 
       const countNotifications = await Notification.count({
         where: {
-          userId: username,
+          recipientId: username,
         },
       });
 
@@ -18,7 +18,7 @@ class NotificationController {
         offset: Number(offset * limit - limit),
         limit: Number(limit),
         where: {
-          userId: username,
+          recipientId: username,
         },
         attributes: ["id", "recipientId", "senderId", "type", "isRead", "createdAt"],
       });

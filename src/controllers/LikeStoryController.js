@@ -31,7 +31,7 @@ class LikeStoryController {
         await story.update({ amountLikes: story.amountLikes - 1 });
 
         return res.json({
-          success: ["Você desmarcou como curtida uma publicação."],
+          success: ["Você desmarcou como curtida um story."],
         });
       } else {
         await LikeStory.create({ userId: username, storyId: id });
@@ -49,7 +49,7 @@ class LikeStoryController {
         }
 
         return res.json({
-          success: ["Você marcou como curtida uma publicação."],
+          success: ["Você marcou como curtida um story."],
         });
       }
     } catch (error) {

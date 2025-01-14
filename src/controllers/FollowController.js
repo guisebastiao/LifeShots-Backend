@@ -9,6 +9,12 @@ class FollowController {
       const { userId } = req.body;
       const { username } = req;
 
+      if (username.toLowerCase() === userId.toLowerCase().trim()) {
+        res.status(400).json({
+          errors: ["Você não pode seguir você mesmo."],
+        });
+      }
+
       const follow = await Follow.findOne({
         where: {
           followingId: username,

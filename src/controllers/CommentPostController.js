@@ -19,7 +19,7 @@ class CommentPostController {
 
       const { notifyCommentPost } = await Setting.findByPk(username);
 
-      if (notifyCommentPost) {
+      if (notifyCommentPost && username !== post.userId) {
         await Notification.create({
           recipientId: post.userId,
           senderId: username,

@@ -34,7 +34,7 @@ class LikePostController {
 
         const { notifyLikePost } = await Setting.findByPk(username);
 
-        if (notifyLikePost) {
+        if (notifyLikePost && username !== post.userId) {
           await Notification.create({
             recipientId: post.userId,
             senderId: username,

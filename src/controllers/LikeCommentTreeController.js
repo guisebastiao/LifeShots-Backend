@@ -12,7 +12,7 @@ class LikeCommentTreeController {
       const likeCommentTree = await LikeCommentTree.findOne({
         where: {
           userId: username,
-          commentTreeId: commentTreeId,
+          commentTreeId,
         },
       });
 
@@ -27,13 +27,13 @@ class LikeCommentTreeController {
           success: ["Você desmarcou como curtida um comentário."],
         });
       } else {
-        await LikeCommentTree.create({ userId: username, commentTreeId: commentTreeId });
+        await LikeCommentTree.create({ userId: username, commentTreeId });
 
         await commentTree.update({ amountLikes: commentTree.amountLikes + 1 });
 
         const { notifyLikeCommentTree } = await Setting.findByPk(username);
 
-        if (notifyLikeCommentTree) {
+        if (notifyLikeCommentTree && username !== commentTree.userId) {
           await Notification.create({
             recipientId: commentTree.userId,
             senderId: username,

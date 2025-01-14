@@ -25,7 +25,7 @@ class CommentTreeController {
 
       const { notifyCommentTree } = await Setting.findByPk(username);
 
-      if (notifyCommentTree) {
+      if (notifyCommentTree && username !== comment.userId) {
         await Notification.create({
           recipientId: comment.userId,
           senderId: username,

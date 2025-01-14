@@ -33,7 +33,7 @@ class LikeCommentController {
 
         const { notifyLikeComment } = await Setting.findByPk(username);
 
-        if (notifyLikeComment) {
+        if (notifyLikeComment && username !== comment.userId) {
           await Notification.create({
             recipientId: comment.userId,
             senderId: username,
