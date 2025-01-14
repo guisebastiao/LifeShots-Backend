@@ -24,7 +24,7 @@ export const storyValidate = async (req, res, next) => {
 
   if (story.length > 15) {
     return res.status(400).json({
-      errors: ["Você atingiu o limite de seus stories."],
+      errors: ["Você atingiu o limite dos seus stories."],
     });
   }
 

@@ -30,7 +30,6 @@ export default async (req, res, next) => {
 
     return next();
   } catch (error) {
-    console.log(error);
     return res.status(401).json({
       errors: ["Sessão expirada, faça seu login"],
     });
