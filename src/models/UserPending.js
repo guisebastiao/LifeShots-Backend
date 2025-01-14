@@ -50,7 +50,9 @@ export default class UserPending extends Model {
     );
 
     this.addHook("beforeSave", async (user) => {
-      user.passwordHash = await bcrypt.hash(user.password, 8);
+      if (user.password) {
+        user.passwordHash = await bcrypt.hash(user.password, 8);
+      }
     });
 
     return this;

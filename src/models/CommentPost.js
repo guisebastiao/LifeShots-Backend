@@ -66,12 +66,12 @@ export default class CommentPost extends Model {
     });
 
     this.hasMany(models.LikeComment, {
-      foreignKey: "id",
+      foreignKey: "commentId",
       as: "likes",
     });
 
     this.hasMany(models.CommentTree, {
-      foreignKey: "id",
+      foreignKey: "commentId",
       as: "commentTree",
     });
   }

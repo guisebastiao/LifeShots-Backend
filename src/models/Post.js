@@ -51,22 +51,22 @@ export default class Post extends Model {
     });
 
     this.hasMany(models.PostImage, {
-      foreignKey: "id",
+      foreignKey: "postId",
       as: "postImages",
     });
 
     this.hasMany(models.LikePost, {
-      foreignKey: "id",
+      foreignKey: "postId",
       as: "likes",
     });
 
     this.hasMany(models.CommentPost, {
-      foreignKey: "id",
+      foreignKey: "postId",
       as: "comments",
     });
 
     this.hasMany(models.CommentTree, {
-      foreignKey: "id",
+      foreignKey: "postId",
       as: "postCommentSon",
     });
   }
