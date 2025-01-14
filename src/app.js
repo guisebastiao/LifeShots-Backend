@@ -95,30 +95,30 @@ class App {
   }
 
   routes() {
-    this.app.use("/api/register/", registerRoutes);
-    this.app.use("/api/login/", loginRoutes);
-    this.app.use("/api/active-account/", activeAccountRoutes);
-    this.app.use("/api/active-login/", activeLoginRoutes);
-    this.app.use("/api/blocks/", blockRoutes);
-    this.app.use("/api/follows/", followRoutes);
-    this.app.use("/api/profile-picture/", profilePictureRoutes);
-    this.app.use("/api/users/", userRoutes);
-    this.app.use("/api/reset-password/", resetPasswordRoutes);
-    this.app.use("/api/posts/", postRoutes);
-    this.app.use("/api/likes-posts/", likePostRoutes);
-    this.app.use("/api/comments/", commentPostRoutes);
-    this.app.use("/api/posts-images/", postImageRoutes);
-    this.app.use("/api/likes-comments/", likeCommentRoutes);
-    this.app.use("/api/comments-tree/", commentTreeRoutes);
-    this.app.use("/api/likes-comments-tree/", likeCommentTreeRoutes);
-    this.app.use("/api/stories/", storyRoutes);
-    this.app.use("/api/likes-stories/", likeStoryRoutes);
-    this.app.use("/api/feed/", feedRoutes);
-    this.app.use("/api/explorer/", explorerRoutes);
-    this.app.use("/api/search/", searchRoutes);
-    this.app.use("/api/recommended-users/", recommendedUsersRoutes);
-    this.app.use("/api/settings/", settingRoutes);
-    this.app.use("/api/notifications/", notificationRoutes);
+    this.app.use("/register/", registerRoutes);
+    this.app.use("/login/", loginRoutes);
+    this.app.use("/active-account/", activeAccountRoutes);
+    this.app.use("/active-login/", activeLoginRoutes);
+    this.app.use("/blocks/", blockRoutes);
+    this.app.use("/follows/", followRoutes);
+    this.app.use("/profile-picture/", profilePictureRoutes);
+    this.app.use("/users/", userRoutes);
+    this.app.use("/reset-password/", resetPasswordRoutes);
+    this.app.use("/posts/", postRoutes);
+    this.app.use("/likes-posts/", likePostRoutes);
+    this.app.use("/comments/", commentPostRoutes);
+    this.app.use("/posts-images/", postImageRoutes);
+    this.app.use("/likes-comments/", likeCommentRoutes);
+    this.app.use("/comments-tree/", commentTreeRoutes);
+    this.app.use("/likes-comments-tree/", likeCommentTreeRoutes);
+    this.app.use("/stories/", storyRoutes);
+    this.app.use("/likes-stories/", likeStoryRoutes);
+    this.app.use("/feed/", feedRoutes);
+    this.app.use("/explorer/", explorerRoutes);
+    this.app.use("/search/", searchRoutes);
+    this.app.use("/recommended-users/", recommendedUsersRoutes);
+    this.app.use("/settings/", settingRoutes);
+    this.app.use("/notifications/", notificationRoutes);
   }
 }
 
