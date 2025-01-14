@@ -38,6 +38,7 @@ export default class StoryImage extends Model {
       },
       {
         sequelize,
+        tableName: "storyImage",
       }
     );
 
@@ -46,7 +47,7 @@ export default class StoryImage extends Model {
 
   static associate(models) {
     this.belongsTo(models.Story, {
-      foreignKey: "storyId",
+      foreignKey: "id",
       as: "storyImages",
     });
   }

@@ -28,6 +28,10 @@ export default class User extends Model {
           type: Sequelize.STRING,
           allowNull: false,
         },
+        password: {
+          type: Sequelize.VIRTUAL,
+          allowNull: false,
+        },
         activeToken: {
           type: Sequelize.UUID,
           defaultValue: Sequelize.UUIDV4,
@@ -69,11 +73,12 @@ export default class User extends Model {
       },
       {
         sequelize,
+        tableName: "user",
       }
     );
 
     this.addHook("beforeSave", async (user) => {
-      user.passwordHash = await bcrypt.hash(user.passwordHash, 8);
+      user.passwordHash = await bcrypt.hash(user.password, 8);
     });
 
     return this;

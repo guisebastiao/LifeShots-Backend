@@ -52,6 +52,7 @@ export default class CommentTree extends Model {
       },
       {
         sequelize,
+        tableName: "commentTree",
       }
     );
 

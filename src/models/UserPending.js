@@ -26,6 +26,11 @@ export default class UserPending extends Model {
         },
         passwordHash: {
           type: Sequelize.STRING,
+          defaultValue: "",
+          allowNull: false,
+        },
+        password: {
+          type: Sequelize.VIRTUAL,
           allowNull: false,
         },
         activeToken: {
@@ -40,11 +45,12 @@ export default class UserPending extends Model {
       },
       {
         sequelize,
+        tableName: "userPending",
       }
     );
 
     this.addHook("beforeSave", async (user) => {
-      user.passwordHash = await bcrypt.hash(user.passwordHash, 8);
+      user.passwordHash = await bcrypt.hash(user.password, 8);
     });
 
     return this;

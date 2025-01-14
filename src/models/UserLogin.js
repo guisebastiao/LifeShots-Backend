@@ -37,6 +37,7 @@ export default class UserLogin extends Model {
       },
       {
         sequelize,
+        tableName: "userLogin",
       }
     );
 

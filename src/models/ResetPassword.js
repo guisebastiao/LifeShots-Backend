@@ -27,6 +27,7 @@ export default class ResetPassword extends Model {
       },
       {
         sequelize,
+        tableName: "resetPassword",
       }
     );
 

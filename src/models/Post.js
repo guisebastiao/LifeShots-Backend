@@ -37,6 +37,7 @@ export default class Post extends Model {
       },
       {
         sequelize,
+        tableName: "post",
       }
     );
 

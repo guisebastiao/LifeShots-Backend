@@ -36,6 +36,7 @@ export default class Story extends Model {
       },
       {
         sequelize,
+        tableName: "story",
       }
     );
 
@@ -49,7 +50,7 @@ export default class Story extends Model {
     });
 
     this.hasMany(models.StoryImage, {
-      foreignKey: "id",
+      foreignKey: "storyId",
       as: "storyImages",
     });
 

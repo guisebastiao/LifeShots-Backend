@@ -22,6 +22,7 @@ export default class TemporaryBlocked extends Model {
       },
       {
         sequelize,
+        tableName: "temporaryBlocked",
       }
     );
 

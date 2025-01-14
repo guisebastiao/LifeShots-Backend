@@ -33,6 +33,7 @@ export default class LikeStory extends Model {
       },
       {
         sequelize,
+        tableName: "likeStory",
       }
     );
 

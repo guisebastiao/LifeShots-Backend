@@ -47,6 +47,7 @@ export default class CommentPost extends Model {
       },
       {
         sequelize,
+        tableName: "commentPost",
       }
     );
 

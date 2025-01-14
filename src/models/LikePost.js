@@ -33,6 +33,7 @@ export default class LikePost extends Model {
       },
       {
         sequelize,
+        tableName: "likePost",
       }
     );
 

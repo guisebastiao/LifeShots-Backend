@@ -33,6 +33,7 @@ export default class Follow extends Model {
       },
       {
         sequelize,
+        tableName: "follow",
       }
     );
 

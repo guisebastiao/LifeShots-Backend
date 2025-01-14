@@ -33,6 +33,7 @@ export default class Block extends Model {
       },
       {
         sequelize,
+        tableName: "block",
       }
     );
 

@@ -38,6 +38,7 @@ export default class PostImage extends Model {
       },
       {
         sequelize,
+        tableName: "postImage",
       }
     );
 

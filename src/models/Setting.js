@@ -54,6 +54,7 @@ export default class Setting extends Model {
       },
       {
         sequelize,
+        tableName: "setting",
       }
     );
 

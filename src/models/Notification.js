@@ -42,6 +42,7 @@ export default class Notification extends Model {
       },
       {
         sequelize,
+        tableName: "notification",
       }
     );
 

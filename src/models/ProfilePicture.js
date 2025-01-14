@@ -33,6 +33,7 @@ export default class ProfilePicture extends Model {
       },
       {
         sequelize,
+        tableName: "profilePicture",
       }
     );
 
