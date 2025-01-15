@@ -1,6 +1,8 @@
 import User from "../models/User";
 import ResetPassword from "../models/ResetPassword";
 
+import { passwordReset } from "../../public/emails/passwordReset";
+
 class ResetPasswordController {
   async store(req, res) {
     try {
@@ -31,7 +33,7 @@ class ResetPasswordController {
         from: process.env.EMAIL,
         to: email,
         subject: "Email para alterar sua senha.",
-        // html: ,
+        html: passwordReset({ resetLink }),
       };
 
       await transporter.sendMail(mailOptions);
