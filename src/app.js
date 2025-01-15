@@ -13,6 +13,7 @@ import { expirateUserLogin } from "./cron/expirateUserLogin";
 import { expirateUserPending } from "./cron/expirateUserPending";
 import { expirateStory } from "./cron/expirateStory";
 
+import statusRoutes from "./routes/statusRoutes";
 import registerRoutes from "./routes/registerRoutes";
 import activeAccountRoutes from "./routes/activeAccountRoutes";
 import loginRoutes from "./routes/loginRoutes";
@@ -95,6 +96,7 @@ class App {
   }
 
   routes() {
+    this.app.use("/", statusRoutes);
     this.app.use("/register/", registerRoutes);
     this.app.use("/login/", loginRoutes);
     this.app.use("/active-account/", activeAccountRoutes);
