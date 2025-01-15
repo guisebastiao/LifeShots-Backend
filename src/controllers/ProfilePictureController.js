@@ -20,7 +20,13 @@ class ProfilePictureController {
       const existProfilePicture = await ProfilePicture.findByPk(username);
 
       if (existProfilePicture) {
-        existProfilePicture.destroy();
+        const filepath = resolve(__dirname, "../../uploads/profilePictures/", existProfilePicture.filename);
+
+        if (fs.existsSync(filepath)) {
+          fs.unlinkSync(filepath);
+        }
+
+        await existProfilePicture.destroy();
       }
 
       const { originalname, buffer } = file;

@@ -1,19 +1,34 @@
 import User from "../models/User";
 import ResetPassword from "../models/ResetPassword";
 
+import nodemailer from "nodemailer";
+
 import { passwordReset } from "../../public/emails/passwordReset";
+import appConfig from "../config/appConfig";
 
 class ResetPasswordController {
   async store(req, res) {
     try {
       const { email } = req.body;
 
+      const user = await User.findOne({
+        where: {
+          email,
+        },
+      });
+
+      if (!user) {
+        return res.status(400).json({
+          errors: ["E-mail fornecido está incorreto."],
+        });
+      }
+
       const date = new Date();
       date.setMinutes(date.getHours() + 1);
       const expirate = date.toISOString();
 
       const { tokenId } = await ResetPassword.create({
-        userId: username,
+        userId: user.username,
         expirate,
       });
 
@@ -52,7 +67,6 @@ class ResetPasswordController {
 
   async update(req, res) {
     try {
-      const { username } = req;
       const { password } = req.body;
       const { token } = req.params;
 
@@ -64,7 +78,7 @@ class ResetPasswordController {
         });
       }
 
-      const user = await User.findByPk(username);
+      const user = await User.findByPk(resetPassword.userId);
       await user.update({ password });
 
       await resetPassword.destroy();

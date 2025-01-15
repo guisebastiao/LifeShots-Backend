@@ -1,5 +1,6 @@
-import { extname } from "path";
+import { resolve } from "path";
 import { literal } from "sequelize";
+import fs from "fs";
 
 import User from "../models/User";
 import ProfilePicture from "../models/ProfilePicture";
@@ -49,51 +50,10 @@ class UserController {
 
   async update(req, res) {
     try {
-      const { username, file } = req;
+      const { username } = req;
       const { bio, privateAccount, name, surname } = req.body;
 
       const user = await User.findByPk(username);
-
-      if (file) {
-        const { originalname, buffer } = file;
-        const random = Math.floor(Math.random() * 10000 + 10000);
-
-        const existingPicture = await ProfilePicture.findOne({
-          where: {
-            userId: username,
-          },
-        });
-
-        if (existingPicture) {
-          existingPicture.destroy();
-        }
-
-        await existingPicture.destroy();
-
-        const filename = `${Date.now()}_${random}${extname(originalname)}`;
-        const uploadDir = resolve(__dirname, "../../uploads/profilePictures/");
-
-        if (!fs.existsSync(uploadDir)) {
-          fs.mkdirSync(uploadDir, { recursive: true });
-        }
-
-        const filepath = join(uploadDir, filename);
-
-        await resizeImage({ buffer, filepath });
-
-        const { url } = await ProfilePicture.create({
-          userId: username,
-          originalname,
-          filename,
-        });
-
-        const user = await User.findByPk(username);
-        user.update({ profilePicture: url });
-
-        return res.json({
-          success: ["Foto de perfil adicionada."],
-        });
-      }
 
       await user.update({ bio, privateAccount, name, surname });
 

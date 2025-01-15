@@ -15,7 +15,7 @@ class RecomendedUserController {
         attributes: ["followerId"],
       });
 
-      const followingUsernames = followingList.map((follow) => follow.followersId);
+      const followingUsernames = followingList.map((follow) => follow.followerId);
 
       const countFollowing = await Follow.count({
         where: {

@@ -113,14 +113,14 @@ class FollowController {
 
         return res.json({
           paging,
-          following: following.map(({ followers }) => followers),
+          following: following.map(({ follower }) => follower),
         });
       }
 
       if (type === "followers") {
         const countFollowing = await Follow.count({
           where: {
-            followersId: userId,
+            followerId: userId,
           },
         });
 
@@ -128,9 +128,9 @@ class FollowController {
 
         const followers = await Follow.findAll({
           where: {
-            followersId: userId,
+            followerId: userId,
           },
-          attributes: ["followId"],
+          attributes: ["id"],
           include: [
             {
               model: User,
