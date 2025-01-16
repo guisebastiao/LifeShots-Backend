@@ -39,6 +39,34 @@ class NotificationController {
       });
     }
   }
+
+  async update(req, res) {
+    try {
+      const { username } = req;
+
+      const [updateCount] = await Notification.update(
+        {
+          isRead: true,
+        },
+        {
+          where: {
+            recipientId: username,
+            isRead: false,
+          },
+        }
+      );
+
+      return res.json({
+        success: [`${updateCount} notificações marcadas como lidas.`],
+      });
+    } catch (error) {
+      console.error("Error in NotificationController - Update", error);
+
+      return res.status(500).json({
+        errors: ["Algo deu errado, tente novamente mais tarde."],
+      });
+    }
+  }
 }
 
 export default new NotificationController();
