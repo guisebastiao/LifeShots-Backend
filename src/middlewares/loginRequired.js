@@ -2,6 +2,8 @@ import jwt from "jsonwebtoken";
 import User from "../models/User";
 
 export default async (req, res, next) => {
+  res.setHeader("authenticated", "false");
+
   try {
     const { authorization } = req.headers;
 
@@ -27,6 +29,8 @@ export default async (req, res, next) => {
 
     req.username = username;
     req.email = email;
+
+    res.setHeader("authenticated", "true");
 
     return next();
   } catch (error) {
