@@ -7,7 +7,7 @@ LifeShots API é o backend responsável por gerenciar todas as funcionalidades d
  - **Autenticação JWT:** Garante o acesso seguro à plataforma;
  - **Gerenciamento de Usuários:** Cadastro, atualização, e remoção de perfis;
  - **Interações Sociais:** Sistema de curtidas, comentários e seguidores;
- - **Controle de Conteúdo:** Publicação e gerenciamento de stories e posts;
+ - **Controle de Conteúdo:** Publicação e gerenciamento de stories e publicações;
 
 ## Tecnologias Utilizadas
  - **Linguagem:** NodeJS;
