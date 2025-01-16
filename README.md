@@ -57,7 +57,7 @@ LifeShots API é o backend responsável por gerenciar todas as funcionalidades d
 
  > `Crie uma database em seu MySQL Workbench com o nome de lifeshots.`
 
-6. Execute as migrações do banco de dados:
+5. Execute as migrações do banco de dados:
 
 ```bash
   > npx sequelize-cli db:migrate
