@@ -39,7 +39,7 @@ LifeShots API é o backend responsável por gerenciar todas as funcionalidades d
 1. Clone o repositório:
 
 ```bash
-  > git clone https://github.com/seuusuario/lifeshots-api.git
+  > git clone https://github.com/guisebastiao/lifeshots-api.git
   > cd lifeshots-api
 ```
 
