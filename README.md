@@ -53,18 +53,22 @@ LifeShots API é o backend responsável por gerenciar todas as funcionalidades d
    
  > `Crie um arquivo .env baseado no .env.example fornecido no repositório.`
 
-4. Execute as migrações do banco de dados:
+4. Crie a database:
+
+ > `Crie uma database em seu MySQL Workbench com o nome de lifeshots.`
+
+6. Execute as migrações do banco de dados:
 
 ```bash
   > npx sequelize-cli db:migrate
 ```
 
-5. Inicie o servidor:
+6. Inicie o servidor:
 
 ```bash
   > npm run dev
 ```
 
-6. A API estará disponível em:
+7. A API estará disponível em:
 
  > `http://localhost:3333/`
