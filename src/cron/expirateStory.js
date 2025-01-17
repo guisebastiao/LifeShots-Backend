@@ -22,19 +22,23 @@ export const expirateStory = async () => {
         storyId: story.id,
       });
 
-      storyImage.map((image) => {
+      storyImage.map(async (image) => {
         const { filename } = image;
 
-        const filepath = resolve(__dirname, "../../uploads/storyImages/", filename);
+        const filepath = resolve(
+          __dirname,
+          "../../uploads/storyImages/",
+          filename
+        );
 
         if (fs.existsSync(filepath)) {
           fs.unlinkSync(filepath);
         }
 
-        image.destroy();
+        await image.destroy();
       });
 
-      story.destroy();
+      await story.destroy();
     });
   } catch (error) {
     console.error("Error CRON expirateStory", error);
