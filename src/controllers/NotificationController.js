@@ -20,7 +20,16 @@ class NotificationController {
         where: {
           recipientId: username,
         },
-        attributes: ["id", "recipientId", "senderId", "type", "isRead", "createdAt"],
+        attributes: [
+          "id",
+          "recipientId",
+          "senderId",
+          "message",
+          "type",
+          "isRead",
+          "createdAt",
+        ],
+        order: [["createdAt", "DESC"]],
       });
 
       const paging = {
