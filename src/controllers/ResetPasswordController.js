@@ -47,14 +47,15 @@ class ResetPasswordController {
       const mailOptions = {
         from: process.env.EMAIL,
         to: email,
-        subject: "Email para alterar sua senha.",
+        subject: "Email para redefinir sua senha.",
         html: passwordReset({ resetLink }),
       };
 
       await transporter.sendMail(mailOptions);
 
       return res.json({
-        success: "Um email foi enviado para trocar sua senha, por favor, verifique seu email.",
+        success:
+          "Um email foi enviado para redefinir sua senha, por favor, verifique seu email.",
       });
     } catch (error) {
       console.error("Error in ResetPasswordController - Store", error);
@@ -74,7 +75,9 @@ class ResetPasswordController {
 
       if (!resetPassword) {
         return res.status(400).json({
-          errors: ["A troca de senha se expirou ou a sessão é invalida, clique para troca-la novamente."],
+          errors: [
+            "A troca de senha se expirou ou a sessão é invalida, clique para troca-la novamente.",
+          ],
         });
       }
 
