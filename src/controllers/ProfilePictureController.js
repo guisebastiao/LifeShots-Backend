@@ -20,7 +20,11 @@ class ProfilePictureController {
       const existProfilePicture = await ProfilePicture.findByPk(username);
 
       if (existProfilePicture) {
-        const filepath = resolve(__dirname, "../../uploads/profilePictures/", existProfilePicture.filename);
+        const filepath = resolve(
+          __dirname,
+          "../../uploads/profilePictures/",
+          existProfilePicture.filename
+        );
 
         if (fs.existsSync(filepath)) {
           fs.unlinkSync(filepath);
@@ -73,9 +77,7 @@ class ProfilePictureController {
       });
 
       if (!profilePicture) {
-        return res.status(400).json({
-          errors: ["Você não possui nenhuma foto de perfil."],
-        });
+        return res.json(null);
       }
 
       return res.json({ profilePicture: profilePicture.url });
@@ -100,7 +102,11 @@ class ProfilePictureController {
         });
       }
 
-      const filepath = resolve(__dirname, "../../uploads/profilePictures/", profilePicture.filename);
+      const filepath = resolve(
+        __dirname,
+        "../../uploads/profilePictures/",
+        profilePicture.filename
+      );
 
       if (fs.existsSync(filepath)) {
         fs.unlinkSync(filepath);
