@@ -63,7 +63,9 @@ class RegisterController {
       await transporter.sendMail(mailOptions);
 
       return res.json({
-        success: ["Você precisa verificar sua conta."],
+        success: [
+          "Você precisa verificar sua conta, entre em seu e-mail e clique o link enviado.",
+        ],
       });
     } catch (error) {
       console.error("Error in RegisterController - Store", error);
