@@ -44,6 +44,7 @@ const whitelist = ["http://localhost:5173"];
 const corsOptions = {
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
+  exposedHeaders: ["authenticated"],
   origin: (origin, callback) => {
     if (whitelist.includes(origin) || !origin) {
       callback(null, true);
@@ -90,9 +91,18 @@ class App {
       })
     );
 
-    this.app.use("/post-images/", express.static(resolve(__dirname, "..", "uploads", "postImages")));
-    this.app.use("/profile-picture/", express.static(resolve(__dirname, "..", "uploads", "profilePictures")));
-    this.app.use("/story-images/", express.static(resolve(__dirname, "..", "uploads", "storyImages")));
+    this.app.use(
+      "/post-images/",
+      express.static(resolve(__dirname, "..", "uploads", "postImages"))
+    );
+    this.app.use(
+      "/profile-picture/",
+      express.static(resolve(__dirname, "..", "uploads", "profilePictures"))
+    );
+    this.app.use(
+      "/story-images/",
+      express.static(resolve(__dirname, "..", "uploads", "storyImages"))
+    );
   }
 
   routes() {
