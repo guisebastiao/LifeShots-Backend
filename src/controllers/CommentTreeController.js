@@ -15,7 +15,12 @@ class CommentTreeController {
 
       const { postId } = await CommentPost.findByPk(commentId);
 
-      await CommentTree.create({ userId: username, postId, commentId, content });
+      await CommentTree.create({
+        userId: username,
+        postId,
+        commentId,
+        content,
+      });
 
       const comment = await CommentPost.findByPk(commentId);
 
@@ -29,6 +34,7 @@ class CommentTreeController {
         await Notification.create({
           recipientId: comment.userId,
           senderId: username,
+          message: `${username} respondeu ao seu comentário.`,
           type: "comment-tree",
         });
       }
@@ -71,8 +77,18 @@ class CommentTreeController {
           "content",
           "amountLikes",
           "createdAt",
-          [literal(`CASE WHEN commentTree.userId = :username THEN true ELSE false END`), "isMyCommentTree"],
-          [literal(`CASE WHEN EXISTS (SELECT 1 FROM likeCommentTree WHERE userId = :username AND id = commentTree.id) THEN true ELSE false END`), "isLiked"],
+          [
+            literal(
+              `CASE WHEN commentTree.userId = :username THEN true ELSE false END`
+            ),
+            "isMyCommentTree",
+          ],
+          [
+            literal(
+              `CASE WHEN EXISTS (SELECT 1 FROM likeCommentTree WHERE userId = :username AND id = commentTree.id) THEN true ELSE false END`
+            ),
+            "isLiked",
+          ],
         ],
         replacements: {
           username,

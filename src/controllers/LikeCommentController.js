@@ -37,6 +37,7 @@ class LikeCommentController {
           await Notification.create({
             recipientId: comment.userId,
             senderId: username,
+            message: `${username} curtiu seu comentário.`,
             type: "like-comment",
           });
         }

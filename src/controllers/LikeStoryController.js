@@ -44,6 +44,7 @@ class LikeStoryController {
           await Notification.create({
             recipientId: story.userId,
             senderId: username,
+            message: `${username} curtiu seu story.`,
             type: "like-story",
           });
         }

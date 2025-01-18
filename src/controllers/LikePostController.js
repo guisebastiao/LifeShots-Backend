@@ -38,6 +38,7 @@ class LikePostController {
           await Notification.create({
             recipientId: post.userId,
             senderId: username,
+            message: `${username} curtiu sua publicação.`,
             type: "like-post",
           });
         }
@@ -80,7 +81,14 @@ class LikePostController {
           {
             model: User,
             as: "userLikedPost",
-            attributes: ["username", "profilePicture", "privateAccount", "amountFollowing", "amountFollowers", "amountPosts"],
+            attributes: [
+              "username",
+              "profilePicture",
+              "privateAccount",
+              "amountFollowing",
+              "amountFollowers",
+              "amountPosts",
+            ],
           },
         ],
       });

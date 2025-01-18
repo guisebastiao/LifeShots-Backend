@@ -37,6 +37,7 @@ class LikeCommentTreeController {
           await Notification.create({
             recipientId: commentTree.userId,
             senderId: username,
+            message: `${username} curtiu seu comentário.`,
             type: "like-comment-tree",
           });
         }

@@ -56,6 +56,7 @@ class FollowController {
           await Notification.create({
             recipientId: userId,
             senderId: username,
+            message: `${username} começou a seguir você.`,
             type: "new-follow",
           });
         }
@@ -99,7 +100,13 @@ class FollowController {
             {
               model: User,
               as: "followers",
-              attributes: ["username", "profilePicture", "amountFollowing", "amountFollowers", "amountPosts"],
+              attributes: [
+                "username",
+                "profilePicture",
+                "amountFollowing",
+                "amountFollowers",
+                "amountPosts",
+              ],
             },
           ],
         });
@@ -135,7 +142,13 @@ class FollowController {
             {
               model: User,
               as: "following",
-              attributes: ["username", "profilePicture", "amountFollowing", "amountFollowers", "amountPosts"],
+              attributes: [
+                "username",
+                "profilePicture",
+                "amountFollowing",
+                "amountFollowers",
+                "amountPosts",
+              ],
             },
           ],
         });

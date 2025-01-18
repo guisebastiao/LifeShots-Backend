@@ -23,6 +23,7 @@ class CommentPostController {
         await Notification.create({
           recipientId: post.userId,
           senderId: username,
+          message: `${username} comentou em sua publicação.`,
           type: "comment-post",
         });
       }
@@ -66,8 +67,18 @@ class CommentPostController {
           "amountLikes",
           "amountCommentTree",
           "createdAt",
-          [literal(`CASE WHEN commentPost.userId = :username THEN true ELSE false END`), "isMyComment"],
-          [literal(`CASE WHEN EXISTS (SELECT 1 FROM likeComment WHERE userId = :username AND commentId = commentPost.id) THEN true ELSE false END`), "isLiked"],
+          [
+            literal(
+              `CASE WHEN commentPost.userId = :username THEN true ELSE false END`
+            ),
+            "isMyComment",
+          ],
+          [
+            literal(
+              `CASE WHEN EXISTS (SELECT 1 FROM likeComment WHERE userId = :username AND commentId = commentPost.id) THEN true ELSE false END`
+            ),
+            "isLiked",
+          ],
         ],
         replacements: {
           username,
