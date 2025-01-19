@@ -7,5 +7,6 @@ const router = new Router();
 
 router.get("/", loginRequired, notificationController.index);
 router.put("/", loginRequired, notificationController.update);
+router.delete("/", loginRequired, notificationController.delete);
 
 export default router;

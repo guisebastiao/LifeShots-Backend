@@ -39,7 +39,10 @@ class NotificationController {
         lastOffset,
       };
 
-      return res.json({ paging, notifications });
+      return res.json({
+        paging,
+        notifications,
+      });
     } catch (error) {
       console.error("Error in NotificationController - Index", error);
 
@@ -70,6 +73,28 @@ class NotificationController {
       });
     } catch (error) {
       console.error("Error in NotificationController - Update", error);
+
+      return res.status(500).json({
+        errors: ["Algo deu errado, tente novamente mais tarde."],
+      });
+    }
+  }
+
+  async delete(req, res) {
+    try {
+      const { username } = req;
+
+      const deletedCount = await Notification.destroy({
+        where: {
+          recipientId: username,
+        },
+      });
+
+      return res.json({
+        success: [`${deletedCount} notificações foram excluidas.`],
+      });
+    } catch (error) {
+      console.error("Error in NotificationController - Delete", error);
 
       return res.status(500).json({
         errors: ["Algo deu errado, tente novamente mais tarde."],
