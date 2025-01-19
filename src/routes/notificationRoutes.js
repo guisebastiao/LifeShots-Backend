@@ -5,7 +5,8 @@ import loginRequired from "../middlewares/loginRequired";
 
 const router = new Router();
 
-router.get("/", loginRequired, notificationController.index);
+router.get("/all", loginRequired, notificationController.index);
+router.get("/", loginRequired, notificationController.show);
 router.put("/", loginRequired, notificationController.update);
 router.delete("/", loginRequired, notificationController.delete);
 

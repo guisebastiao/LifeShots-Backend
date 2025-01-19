@@ -1,4 +1,5 @@
 import Notification from "../models/Notification";
+import User from "../models/User";
 
 class NotificationController {
   async index(req, res) {
@@ -30,6 +31,13 @@ class NotificationController {
           "createdAt",
         ],
         order: [["createdAt", "DESC"]],
+        include: [
+          {
+            model: User,
+            as: "sender",
+            attributes: ["username", "profilePicture", "privateAccount"],
+          },
+        ],
       });
 
       const paging = {
@@ -45,6 +53,29 @@ class NotificationController {
       });
     } catch (error) {
       console.error("Error in NotificationController - Index", error);
+
+      return res.status(500).json({
+        errors: ["Algo deu errado, tente novamente mais tarde."],
+      });
+    }
+  }
+
+  async show(req, res) {
+    try {
+      const { username } = req;
+
+      const hasUnread = await Notification.findAll({
+        where: {
+          recipientId: username,
+          isRead: false,
+        },
+      });
+
+      const isRead = hasUnread.length === 0;
+
+      return res.json({ isRead });
+    } catch (error) {
+      console.error("Error in NotificationController - Show", error);
 
       return res.status(500).json({
         errors: ["Algo deu errado, tente novamente mais tarde."],
