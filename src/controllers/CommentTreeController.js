@@ -85,7 +85,7 @@ class CommentTreeController {
           ],
           [
             literal(
-              `CASE WHEN EXISTS (SELECT 1 FROM likeCommentTree WHERE userId = :username AND id = commentTree.id) THEN true ELSE false END`
+              `CASE WHEN EXISTS (SELECT 1 FROM likeCommentTree WHERE userId = :username AND commentTreeId = commentTree.id) THEN true ELSE false END`
             ),
             "isLiked",
           ],
