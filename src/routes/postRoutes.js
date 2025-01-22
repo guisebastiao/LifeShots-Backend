@@ -20,7 +20,7 @@ router.post(
   postController.store
 );
 router.get("/:postId", loginRequired, postController.show);
-router.get("/list/:userId", loginRequired, postController.index);
+router.get("/all/:userId", loginRequired, postController.index);
 router.put(
   "/:postId",
   loginRequired,
