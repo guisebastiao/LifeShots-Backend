@@ -6,7 +6,12 @@ import loginRequired from "../middlewares/loginRequired";
 
 const router = new Router();
 
-router.post("/", loginRequired, uploadProfilePicture, profilePictureController.store);
+router.post(
+  "/",
+  loginRequired,
+  uploadProfilePicture,
+  profilePictureController.store
+);
 router.get("/", loginRequired, profilePictureController.show);
 router.delete("/", loginRequired, profilePictureController.delete);
 

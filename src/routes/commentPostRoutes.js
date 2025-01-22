@@ -6,9 +6,21 @@ import loginRequired from "../middlewares/loginRequired";
 
 const router = new Router();
 
-router.post("/", loginRequired, validateRules, commentValidate, commentPostController.store);
+router.post(
+  "/",
+  loginRequired,
+  validateRules,
+  commentValidate,
+  commentPostController.store
+);
 router.get("/:postId", loginRequired, commentPostController.index);
-router.put("/:commentId", loginRequired, validateRules, commentValidate, commentPostController.update);
+router.put(
+  "/:commentId",
+  loginRequired,
+  validateRules,
+  commentValidate,
+  commentPostController.update
+);
 router.delete("/", loginRequired, commentPostController.delete);
 
 export default router;
