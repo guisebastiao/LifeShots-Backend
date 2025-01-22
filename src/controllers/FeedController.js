@@ -35,6 +35,9 @@ class FeedController {
 
       const countPosts = await Post.count({
         where: whereClause,
+        replacements: {
+          username,
+        },
       });
 
       const lastOffset = Math.ceil(countPosts / Number(limit));
