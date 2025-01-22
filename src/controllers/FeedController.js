@@ -25,7 +25,12 @@ class FeedController {
         userId: {
           [Op.in]: followersIds,
         },
-        [Op.and]: [literal(`NOT EXISTS (SELECT 1 FROM block WHERE blockerId = ':username' AND blockedId = Post.userId)`, true)],
+        [Op.and]: [
+          literal(
+            `NOT EXISTS (SELECT 1 FROM block WHERE blockerId = :username AND blockedId = post.userId)`,
+            true
+          ),
+        ],
       };
 
       const countPosts = await Post.count({
@@ -45,7 +50,12 @@ class FeedController {
           "amountLikes",
           "amountComments",
           "createdAt",
-          [literal(`CASE WHEN EXISTS (SELECT 1 FROM likePost WHERE userId = :username AND postId = post.id) THEN true ELSE false END`), "isLiked"],
+          [
+            literal(
+              `CASE WHEN EXISTS (SELECT 1 FROM likePost WHERE userId = :username AND postId = post.id) THEN true ELSE false END`
+            ),
+            "isLiked",
+          ],
         ],
         replacements: {
           username,
