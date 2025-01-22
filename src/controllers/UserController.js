@@ -22,12 +22,25 @@ class UserController {
           "amountFollowing",
           "amountFollowers",
           "amountPosts",
-          [literal(`(CASE WHEN :username = :userId THEN true ELSE false END)`), "isMyAccount"],
-          [literal(`(SELECT CASE WHEN EXISTS(SELECT 1 FROM follow WHERE followingId = :username AND followerId = :userId) THEN true ELSE false END)`), "followingAccount"],
-          [literal(`(SELECT CASE WHEN EXISTS(SELECT 1 FROM follow WHERE followingId = :userId AND followerId = :username) THEN true ELSE false END)`), "followedAccount"],
+          [
+            literal(`(CASE WHEN :username = :userId THEN true ELSE false END)`),
+            "isMyAccount",
+          ],
           [
             literal(
-              `(SELECT CASE WHEN EXISTS (SELECT 1 FROM block WHERE (blockerId = :username AND blockedId = :userId) OR (blockerId = :userId AND blockedId = :username)) THEN true ELSE false END)`
+              `(SELECT CASE WHEN EXISTS(SELECT 1 FROM follow WHERE followingId = :username AND followerId = :userId) THEN true ELSE false END)`
+            ),
+            "followingAccount",
+          ],
+          [
+            literal(
+              `(SELECT CASE WHEN EXISTS(SELECT 1 FROM follow WHERE followingId = :userId AND followerId = :username) THEN true ELSE false END)`
+            ),
+            "followedAccount",
+          ],
+          [
+            literal(
+              `(SELECT CASE WHEN EXISTS (SELECT 1 FROM block WHERE blockerId = :username AND blockedId = :userId) THEN true ELSE false END)`
             ),
             "isBlockedUser",
           ],
@@ -78,7 +91,11 @@ class UserController {
       const profilePicture = await ProfilePicture.findByPk(username);
 
       if (profilePicture) {
-        const filepath = resolve(__dirname, "../../uploads/profilePictures/", profilePicture.filename);
+        const filepath = resolve(
+          __dirname,
+          "../../uploads/profilePictures/",
+          profilePicture.filename
+        );
 
         if (fs.existsSync(filepath)) {
           fs.unlinkSync(filepath);

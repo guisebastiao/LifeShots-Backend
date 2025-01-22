@@ -27,7 +27,7 @@ class FeedController {
         },
         [Op.and]: [
           literal(
-            `NOT EXISTS (SELECT 1 FROM block WHERE blockerId = :username AND blockedId = post.userId)`,
+            `NOT EXISTS (SELECT 1 FROM block WHERE (blockerId = :username AND blockedId = post.userId) OR (blockerId = post.userId AND blockedId = :username))`,
             true
           ),
         ],
