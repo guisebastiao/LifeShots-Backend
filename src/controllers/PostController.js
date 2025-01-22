@@ -63,8 +63,18 @@ class PostController {
           "amountLikes",
           "amountComments",
           "createdAt",
-          [literal(`CASE WHEN post.userId = :username THEN true ELSE false END`), "isMyPost"],
-          [literal(`CASE WHEN EXISTS (SELECT 1 FROM likePost WHERE userId = :username AND postId = post.id) THEN true ELSE false END`), "isLiked"],
+          [
+            literal(
+              `CASE WHEN post.userId = :username THEN true ELSE false END`
+            ),
+            "isMyPost",
+          ],
+          [
+            literal(
+              `CASE WHEN EXISTS (SELECT 1 FROM likePost WHERE userId = :username AND postId = post.id) THEN true ELSE false END`
+            ),
+            "isLiked",
+          ],
         ],
         replacements: {
           username,
@@ -110,13 +120,20 @@ class PostController {
 
       if (privateAccount && !follow) {
         return res.status(401).json({
-          errors: ["Você não tem permissão de visualizar as publicações desse usuário."],
+          errors: [
+            "Você não tem permissão de visualizar as publicações desse usuário.",
+          ],
         });
       }
 
       const whereClause = {
         userId,
-        [Op.and]: [literal(`NOT EXISTS (SELECT 1 FROM block WHERE blockerId = :username AND blockedId = post.userId)`, true)],
+        [Op.and]: [
+          literal(
+            `NOT EXISTS (SELECT 1 FROM block WHERE (blockerId = :username AND blockedId = post.userId) OR (blockedId = :username AND blockerId = post.userId))`,
+            true
+          ),
+        ],
       };
 
       const countPosts = await Post.count({
@@ -139,8 +156,18 @@ class PostController {
           "amountLikes",
           "amountComments",
           "createdAt",
-          [literal(`CASE WHEN post.userId = :username THEN true ELSE false END`), "isMyPost"],
-          [literal(`CASE WHEN EXISTS (SELECT 1 FROM likePost WHERE userId = :username AND postId = post.id) THEN true ELSE false END`), "isLiked"],
+          [
+            literal(
+              `CASE WHEN post.userId = :username THEN true ELSE false END`
+            ),
+            "isMyPost",
+          ],
+          [
+            literal(
+              `CASE WHEN EXISTS (SELECT 1 FROM likePost WHERE userId = :username AND postId = post.id) THEN true ELSE false END`
+            ),
+            "isLiked",
+          ],
         ],
         replacements: {
           username,
@@ -263,7 +290,11 @@ class PostController {
       postImages.map(async (images) => {
         const { filename } = images;
 
-        const filepath = resolve(__dirname, "../../uploads/postImages/", filename);
+        const filepath = resolve(
+          __dirname,
+          "../../uploads/postImages/",
+          filename
+        );
 
         if (fs.existsSync(filepath)) {
           fs.unlinkSync(filepath);

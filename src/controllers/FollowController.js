@@ -120,7 +120,7 @@ class FollowController {
 
         return res.json({
           paging,
-          following: following.map(({ follower }) => follower),
+          following: following.map(({ followers }) => followers),
         });
       }
 
