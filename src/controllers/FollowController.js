@@ -166,7 +166,7 @@ class FollowController {
         });
       }
 
-      return res.status(400).json([]);
+      return res.json([]);
     } catch (error) {
       console.error("Error in FollowController - Index", error);
 
