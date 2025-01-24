@@ -40,7 +40,7 @@ class UserController {
           ],
           [
             literal(
-              `(SELECT CASE WHEN EXISTS (SELECT 1 FROM block WHERE blockerId = :username AND blockedId = :userId) THEN true ELSE false END)`
+              `(SELECT CASE WHEN EXISTS (SELECT 1 FROM block WHERE (blockerId = :username AND blockedId = :userId) OR (blockerId = :userId AND blockedId = :username)) THEN true ELSE false END)`
             ),
             "isBlockedUser",
           ],
