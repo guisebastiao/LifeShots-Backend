@@ -17,13 +17,15 @@ export const postValidate = (req, res, next) => {
 
   if (files.length <= 0) {
     return res.status(400).json({
-      errors: "Nenhuma imagem foi enviada. Pelo menos uma imagem é necessária.",
+      errors: [
+        "Nenhuma imagem foi enviada. Pelo menos uma imagem é necessária.",
+      ],
     });
   }
 
   if (files.length > 10) {
     return res.status(400).json({
-      errors: "É permitido 10 imagens por publicação.",
+      errors: ["É permitido 10 imagens por publicação."],
     });
   }
 
@@ -53,7 +55,7 @@ export const editPostValidate = async (req, res, next) => {
 
   if (postImage.length + files.length > 10) {
     return res.status(400).json({
-      errors: "É permitido 10 imagens por publicação.",
+      errors: ["É permitido 10 imagens por publicação."],
     });
   }
 
