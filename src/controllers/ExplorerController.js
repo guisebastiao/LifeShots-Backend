@@ -19,7 +19,12 @@ class ExplorerController {
         createdAt: {
           [Op.gte]: dateUTC,
         },
-        [Op.and]: [literal(`NOT EXISTS (SELECT 1 FROM block WHERE blockerId = ':username' AND blockedId = Post.userId)`), true],
+        [Op.and]: [
+          literal(
+            `NOT EXISTS (SELECT 1 FROM block WHERE blockerId = ':username' AND blockedId = Post.userId)`
+          ),
+          true,
+        ],
       };
 
       const countPosts = await Post.count({
@@ -39,8 +44,18 @@ class ExplorerController {
           "amountLikes",
           "amountComments",
           "createdAt",
-          [literal(`CASE WHEN Post.userId = :username THEN true ELSE false END`), "isMyPost"],
-          [literal(`CASE WHEN EXISTS (SELECT 1 FROM likePost WHERE userId = :username AND postId = post.id) THEN true ELSE false END`), "isLiked"],
+          [
+            literal(
+              `CASE WHEN Post.userId = :username THEN true ELSE false END`
+            ),
+            "isMyPost",
+          ],
+          [
+            literal(
+              `CASE WHEN EXISTS (SELECT 1 FROM likePost WHERE userId = :username AND postId = post.id) THEN true ELSE false END`
+            ),
+            "isLiked",
+          ],
         ],
         replacements: {
           username,
@@ -49,7 +64,17 @@ class ExplorerController {
           {
             model: User,
             as: "author",
-            attributes: ["username", "profilePicture", "privateAccount"],
+            attributes: [
+              "username",
+              "profilePicture",
+              "privateAccount",
+              [
+                literal(
+                  `(SELECT CASE WHEN EXISTS (SELECT 1 FROM block WHERE (blockerId = :username AND blockedId = post.userId) OR (blockerId = post.userId AND blockedId = :username)) THEN true ELSE false END)`
+                ),
+                "isBlockedUser",
+              ],
+            ],
           },
           {
             model: PostImage,
