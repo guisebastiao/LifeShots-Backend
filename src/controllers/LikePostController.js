@@ -1,6 +1,7 @@
 import Post from "../models/Post";
 import LikePost from "../models/LikePost";
 import Notification from "../models/Notification";
+import ProfilePicture from "../models/ProfilePicture";
 import Setting from "../models/Setting";
 import User from "../models/User";
 
@@ -83,11 +84,17 @@ class LikePostController {
             as: "userLikedPost",
             attributes: [
               "username",
-              "profilePicture",
               "privateAccount",
               "amountFollowing",
               "amountFollowers",
               "amountPosts",
+            ],
+            include: [
+              {
+                model: ProfilePicture,
+                as: "profilePicture",
+                attributes: ["filename", "url"],
+              },
             ],
           },
         ],

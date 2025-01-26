@@ -56,10 +56,6 @@ module.exports = {
         defaultValue: false,
         allowNull: false,
       },
-      profilePicture: {
-        type: Sequelize.STRING,
-        allowNull: true,
-      },
       temporaryBlocked: {
         type: Sequelize.BOOLEAN,
         defaultValue: false,

@@ -27,7 +27,9 @@ export default class ProfilePicture extends Model {
         url: {
           type: Sequelize.VIRTUAL,
           get() {
-            return `${appConfig.url_server}/profile-picture/${this.getDataValue("filename")}`;
+            return `${appConfig.url_server}/profile-picture/${this.getDataValue(
+              "filename"
+            )}`;
           },
         },
       },
@@ -43,7 +45,7 @@ export default class ProfilePicture extends Model {
   static associate(models) {
     this.belongsTo(models.User, {
       foreignKey: "userId",
-      as: "profilePictureUser",
+      as: "profilePicture",
     });
   }
 }

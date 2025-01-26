@@ -5,6 +5,7 @@ import fs from "fs";
 import Post from "../models/Post";
 import LikePost from "../models/LikePost";
 import PostImage from "../models/PostImage";
+import ProfilePicture from "../models/ProfilePicture";
 import Follow from "../models/Follow";
 import User from "../models/User";
 
@@ -83,7 +84,14 @@ class PostController {
           {
             model: User,
             as: "author",
-            attributes: ["username", "profilePicture", "privateAccount"],
+            attributes: ["username", "privateAccount"],
+            include: [
+              {
+                model: ProfilePicture,
+                as: "profilePicture",
+                attributes: ["filename", "url"],
+              },
+            ],
           },
           {
             model: PostImage,
@@ -176,7 +184,14 @@ class PostController {
           {
             model: User,
             as: "author",
-            attributes: ["username", "profilePicture", "privateAccount"],
+            attributes: ["username", "privateAccount"],
+            include: [
+              {
+                model: ProfilePicture,
+                as: "profilePicture",
+                attributes: ["filename", "url"],
+              },
+            ],
           },
           {
             model: PostImage,
@@ -193,7 +208,14 @@ class PostController {
               {
                 model: User,
                 as: "userLikedPost",
-                attributes: ["username", "profilePicture", "privateAccount"],
+                attributes: ["username", "privateAccount"],
+                include: [
+                  {
+                    model: ProfilePicture,
+                    as: "profilePicture",
+                    attributes: ["filename", "url"],
+                  },
+                ],
               },
             ],
           },

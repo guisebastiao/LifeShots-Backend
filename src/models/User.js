@@ -61,10 +61,6 @@ export default class User extends Model {
           defaultValue: false,
           allowNull: false,
         },
-        profilePicture: {
-          type: Sequelize.STRING,
-          allowNull: true,
-        },
         temporaryBlocked: {
           type: Sequelize.BOOLEAN,
           defaultValue: false,
@@ -103,7 +99,7 @@ export default class User extends Model {
 
     this.hasOne(models.ProfilePicture, {
       foreignKey: "userId",
-      as: "profilePictureUser",
+      as: "profilePicture",
     });
 
     this.hasOne(models.UserLogin, {

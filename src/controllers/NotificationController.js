@@ -1,4 +1,5 @@
 import Notification from "../models/Notification";
+import ProfilePicture from "../models/ProfilePicture";
 import User from "../models/User";
 
 class NotificationController {
@@ -35,7 +36,14 @@ class NotificationController {
           {
             model: User,
             as: "sender",
-            attributes: ["username", "profilePicture", "privateAccount"],
+            attributes: ["username", "privateAccount"],
+            include: [
+              {
+                model: ProfilePicture,
+                as: "profilePicture",
+                attributes: ["filename", "url"],
+              },
+            ],
           },
         ],
       });

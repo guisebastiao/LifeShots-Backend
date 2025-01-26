@@ -4,7 +4,6 @@ import fs from "fs";
 import { resizeImage } from "../utils/resizeImage";
 
 import ProfilePicture from "../models/ProfilePicture";
-import User from "../models/User";
 
 class ProfilePictureController {
   async store(req, res) {
@@ -47,14 +46,11 @@ class ProfilePictureController {
 
       await resizeImage({ buffer, filepath });
 
-      const profilePicture = await ProfilePicture.create({
+      await ProfilePicture.create({
         originalname,
         filename,
         userId: username,
       });
-
-      const user = await User.findByPk(username);
-      user.update({ profilePicture: profilePicture.url });
 
       return res.json({
         success: ["Você adicionou uma foto no seu perfil."],

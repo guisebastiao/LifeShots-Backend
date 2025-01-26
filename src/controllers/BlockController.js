@@ -1,3 +1,4 @@
+import ProfilePicture from "../models/ProfilePicture";
 import Block from "../models/Block";
 import User from "../models/User";
 
@@ -58,7 +59,19 @@ class BlockController {
           {
             model: User,
             as: "blocked",
-            attributes: ["username", "profilePicture", "amountFollowing", "amountFollowers", "amountPosts"],
+            attributes: [
+              "username",
+              "amountFollowing",
+              "amountFollowers",
+              "amountPosts",
+            ],
+            include: [
+              {
+                model: ProfilePicture,
+                as: "profilePicture",
+                attributes: ["url"],
+              },
+            ],
           },
         ],
       });

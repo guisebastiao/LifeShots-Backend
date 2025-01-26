@@ -17,7 +17,6 @@ class UserController {
           "name",
           "surname",
           "bio",
-          "profilePicture",
           "privateAccount",
           "amountFollowing",
           "amountFollowers",
@@ -44,6 +43,13 @@ class UserController {
             ),
             "isBlockedUser",
           ],
+        ],
+        include: [
+          {
+            model: ProfilePicture,
+            as: "profilePicture",
+            attributes: ["filename", "url"],
+          },
         ],
         replacements: {
           username,

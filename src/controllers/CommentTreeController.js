@@ -2,6 +2,7 @@ import { literal } from "sequelize";
 
 import User from "../models/User";
 import Post from "../models/Post";
+import ProfilePicture from "../models/ProfilePicture";
 import CommentTree from "../models/CommentTree";
 import CommentPost from "../models/CommentPost";
 import Notification from "../models/Notification";
@@ -97,7 +98,14 @@ class CommentTreeController {
           {
             model: User,
             as: "userCommentsTree",
-            attributes: ["username", "profilePicture", "privateAccount"],
+            attributes: ["username", "privateAccount"],
+            include: [
+              {
+                model: ProfilePicture,
+                as: "profilePicture",
+                attributes: ["filename", "url"],
+              },
+            ],
           },
         ],
       });

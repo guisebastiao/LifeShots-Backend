@@ -1,6 +1,8 @@
 import { Op } from "sequelize";
+
 import User from "../models/User";
 import Follow from "../models/Follow";
+import ProfilePicture from "../models/ProfilePicture";
 
 class RecomendedUserController {
   async index(req, res) {
@@ -15,7 +17,9 @@ class RecomendedUserController {
         attributes: ["followerId"],
       });
 
-      const followingUsernames = followingList.map((follow) => follow.followerId);
+      const followingUsernames = followingList.map(
+        (follow) => follow.followerId
+      );
 
       const countFollowing = await Follow.count({
         where: {
@@ -47,7 +51,9 @@ class RecomendedUserController {
         group: "followerId",
       });
 
-      const recommendedUsernames = recommendedUsers.map((user) => user.followerId);
+      const recommendedUsernames = recommendedUsers.map(
+        (user) => user.followerId
+      );
 
       const users = await User.findAll({
         where: {
@@ -55,7 +61,20 @@ class RecomendedUserController {
             [Op.in]: recommendedUsernames,
           },
         },
-        attributes: ["username", "profilePicture", "amountFollowing", "amountFollowers", "amountPosts", "privateAccount"],
+        attributes: [
+          "username",
+          "amountFollowing",
+          "amountFollowers",
+          "amountPosts",
+          "privateAccount",
+        ],
+        include: [
+          {
+            model: ProfilePicture,
+            as: "profilePicture",
+            attributes: ["filename", "url"],
+          },
+        ],
       });
 
       const paging = {

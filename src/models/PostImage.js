@@ -32,7 +32,9 @@ export default class PostImage extends Model {
         url: {
           type: Sequelize.VIRTUAL,
           get() {
-            return `${appConfig.url_server}/post-images/${this.getDataValue("filename")}`;
+            return `${appConfig.url_server}/post-images/${this.getDataValue(
+              "filename"
+            )}`;
           },
         },
       },

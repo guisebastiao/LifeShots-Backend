@@ -4,6 +4,7 @@ import Post from "../models/Post";
 import User from "../models/User";
 import LikePost from "../models/LikePost";
 import PostImage from "../models/PostImage";
+import ProfilePicture from "../models/ProfilePicture";
 
 class ExplorerController {
   async index(req, res) {
@@ -66,7 +67,6 @@ class ExplorerController {
             as: "author",
             attributes: [
               "username",
-              "profilePicture",
               "privateAccount",
               [
                 literal(
@@ -74,6 +74,13 @@ class ExplorerController {
                 ),
                 "isBlockedUser",
               ],
+            ],
+            include: [
+              {
+                model: ProfilePicture,
+                as: "profilePicture",
+                attributes: ["filename", "url"],
+              },
             ],
           },
           {
@@ -91,7 +98,14 @@ class ExplorerController {
               {
                 model: User,
                 as: "userLikedPost",
-                attributes: ["username", "profilePicture", "privateAccount"],
+                attributes: ["username", "privateAccount"],
+              },
+            ],
+            include: [
+              {
+                model: ProfilePicture,
+                as: "profilePicture",
+                attributes: ["filename", "url"],
               },
             ],
           },

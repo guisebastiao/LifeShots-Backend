@@ -1,6 +1,7 @@
 import { Op } from "sequelize";
 
 import User from "../models/User";
+import ProfilePicture from "../models/ProfilePicture";
 
 class SearchController {
   async index(req, res) {
@@ -43,7 +44,23 @@ class SearchController {
         offset: Number(offset * limit - limit),
         limit: Number(limit),
         where: whereClause,
-        attributes: ["username", "name", "surname", "profilePicture", "bio", "privateAccount", "amountFollowing", "amountFollowers", "amountPosts"],
+        attributes: [
+          "username",
+          "name",
+          "surname",
+          "bio",
+          "privateAccount",
+          "amountFollowing",
+          "amountFollowers",
+          "amountPosts",
+        ],
+        include: [
+          {
+            model: ProfilePicture,
+            as: "profilePicture",
+            attributes: ["filename", "url"],
+          },
+        ],
       });
 
       const paging = {

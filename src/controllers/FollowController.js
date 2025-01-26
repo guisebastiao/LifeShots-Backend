@@ -1,6 +1,7 @@
 import Follow from "../models/Follow";
 import User from "../models/User";
 import Notification from "../models/Notification";
+import ProfilePicture from "../models/ProfilePicture";
 import Setting from "../models/Setting";
 
 class FollowController {
@@ -102,10 +103,16 @@ class FollowController {
               as: "followers",
               attributes: [
                 "username",
-                "profilePicture",
                 "amountFollowing",
                 "amountFollowers",
                 "amountPosts",
+              ],
+              include: [
+                {
+                  model: ProfilePicture,
+                  as: "profilePicture",
+                  attributes: ["filename", "url"],
+                },
               ],
             },
           ],
@@ -144,10 +151,16 @@ class FollowController {
               as: "following",
               attributes: [
                 "username",
-                "profilePicture",
                 "amountFollowing",
                 "amountFollowers",
                 "amountPosts",
+              ],
+              include: [
+                {
+                  model: ProfilePicture,
+                  as: "profilePicture",
+                  attributes: ["filename", "url"],
+                },
               ],
             },
           ],

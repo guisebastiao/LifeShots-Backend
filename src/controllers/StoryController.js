@@ -8,6 +8,7 @@ import User from "../models/User";
 import Story from "../models/Story";
 import Follow from "../models/Follow";
 import StoryImage from "../models/StoryImage";
+import ProfilePicture from "../models/ProfilePicture";
 
 class StoryController {
   async store(req, res) {
@@ -71,7 +72,14 @@ class StoryController {
           {
             model: User,
             as: "author",
-            attributes: ["username", "profilePicture", "privateAccount"],
+            attributes: ["username", "privateAccount"],
+            include: [
+              {
+                model: ProfilePicture,
+                as: "profilePicture",
+                attributes: ["filename", "url"],
+              },
+            ],
           },
           {
             model: StoryImage,
@@ -127,7 +135,9 @@ class StoryController {
             order: [["createdAt", "DESC"]],
             where: {
               [Op.and]: [
-                literal(`NOT EXISTS (SELECT 1 FROM block WHERE blockerId = :username AND blockedId = stories.userId)`),
+                literal(
+                  `NOT EXISTS (SELECT 1 FROM block WHERE blockerId = :username AND blockedId = stories.userId)`
+                ),
                 literal(
                   `(SELECT privateAccount FROM user WHERE username = stories.userId) = false OR EXISTS (SELECT 1 FROM follow WHERE followingId = :username AND followerId = stories.userId AND EXISTS (SELECT 1 FROM follow WHERE followingId = stories.userId AND follow.followerId = :username))`
                 ),
@@ -138,7 +148,12 @@ class StoryController {
               "content",
               "amountLikes",
               "createdAt",
-              [literal(`CASE WHEN EXISTS (SELECT 1 FROM likeStory WHERE userId = :username AND storyId = stories.id) THEN true ELSE false END`), "isLiked"],
+              [
+                literal(
+                  `CASE WHEN EXISTS (SELECT 1 FROM likeStory WHERE userId = :username AND storyId = stories.id) THEN true ELSE false END`
+                ),
+                "isLiked",
+              ],
             ],
             include: [
               {
@@ -148,11 +163,16 @@ class StoryController {
               },
             ],
           },
+          {
+            model: ProfilePicture,
+            as: "profilePicture",
+            attributes: ["filename", "url"],
+          },
         ],
         replacements: {
           username,
         },
-        attributes: ["username", "profilePicture", "privateAccount"],
+        attributes: ["username", "privateAccount"],
       });
 
       const paging = {
@@ -221,7 +241,11 @@ class StoryController {
 
       const { filename } = storyImage;
 
-      const filepath = resolve(__dirname, "../../uploads/storyImages/", filename);
+      const filepath = resolve(
+        __dirname,
+        "../../uploads/storyImages/",
+        filename
+      );
 
       if (fs.existsSync(filepath)) {
         fs.unlinkSync(filepath);

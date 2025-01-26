@@ -5,6 +5,7 @@ import User from "../models/User";
 import CommentPost from "../models/CommentPost";
 import Notification from "../models/Notification";
 import Setting from "../models/Setting";
+import ProfilePicture from "../models/ProfilePicture";
 
 class CommentPostController {
   async store(req, res) {
@@ -87,7 +88,14 @@ class CommentPostController {
           {
             model: User,
             as: "userComments",
-            attributes: ["username", "profilePicture", "privateAccount"],
+            attributes: ["username", "privateAccount"],
+            include: [
+              {
+                model: ProfilePicture,
+                as: "profilePicture",
+                attributes: ["filename", "url"],
+              },
+            ],
           },
         ],
       });

@@ -1,5 +1,6 @@
 import LikeStory from "../models/LikeStory";
 import Notification from "../models/Notification";
+import ProfilePicture from "../models/ProfilePicture";
 import Setting from "../models/Setting";
 import Story from "../models/Story";
 import User from "../models/User";
@@ -84,7 +85,14 @@ class LikeStoryController {
           {
             model: User,
             as: "userLikedStory",
-            attributes: ["username", "profilePicture", "privateAccount"],
+            attributes: ["username", "privateAccount"],
+            include: [
+              {
+                model: ProfilePicture,
+                as: "profilePicture",
+                attributes: ["filename", "url"],
+              },
+            ],
           },
         ],
       });

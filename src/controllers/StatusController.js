@@ -1,5 +1,5 @@
 class StatusController {
-  async show(req, res) {
+  async show(_req, res) {
     try {
       return res.json({
         message: ["API is running"],

@@ -5,6 +5,7 @@ import PostImage from "../models/PostImage";
 import User from "../models/User";
 import Follow from "../models/Follow";
 import LikePost from "../models/LikePost";
+import ProfilePicture from "../models/ProfilePicture";
 
 class FeedController {
   async index(req, res) {
@@ -67,7 +68,7 @@ class FeedController {
           {
             model: User,
             as: "author",
-            attributes: ["username", "profilePicture", "privateAccount"],
+            attributes: ["username", "privateAccount"],
           },
           {
             model: PostImage,
@@ -84,7 +85,14 @@ class FeedController {
               {
                 model: User,
                 as: "userLikedPost",
-                attributes: ["username", "profilePicture", "privateAccount"],
+                attributes: ["username", "privateAccount"],
+                include: [
+                  {
+                    model: ProfilePicture,
+                    as: "profilePicture",
+                    attributes: ["filename", "url"],
+                  },
+                ],
               },
             ],
           },

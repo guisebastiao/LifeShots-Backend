@@ -32,7 +32,9 @@ export default class StoryImage extends Model {
         url: {
           type: Sequelize.VIRTUAL,
           get() {
-            return `${appConfig.url_server}/story-images/${this.getDataValue("filename")}`;
+            return `${appConfig.url_server}/story-images/${this.getDataValue(
+              "filename"
+            )}`;
           },
         },
       },
