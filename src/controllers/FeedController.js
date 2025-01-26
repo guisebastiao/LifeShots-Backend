@@ -69,6 +69,13 @@ class FeedController {
             model: User,
             as: "author",
             attributes: ["username", "privateAccount"],
+            include: [
+              {
+                model: ProfilePicture,
+                as: "profilePicture",
+                attributes: ["filename", "url"],
+              },
+            ],
           },
           {
             model: PostImage,

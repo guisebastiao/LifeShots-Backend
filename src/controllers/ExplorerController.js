@@ -99,13 +99,13 @@ class ExplorerController {
                 model: User,
                 as: "userLikedPost",
                 attributes: ["username", "privateAccount"],
-              },
-            ],
-            include: [
-              {
-                model: ProfilePicture,
-                as: "profilePicture",
-                attributes: ["filename", "url"],
+                include: [
+                  {
+                    model: ProfilePicture,
+                    as: "profilePicture",
+                    attributes: ["filename", "url"],
+                  },
+                ],
               },
             ],
           },
