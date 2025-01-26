@@ -19,7 +19,9 @@ export const expirateStory = async () => {
 
     expirateStories.map(async (story) => {
       const storyImage = await StoryImage.findAll({
-        storyId: story.id,
+        where: {
+          storyId: story.id,
+        },
       });
 
       storyImage.map(async (image) => {
