@@ -2,10 +2,10 @@ import { literal } from "sequelize";
 
 import Post from "../models/Post";
 import User from "../models/User";
+import ProfilePicture from "../models/ProfilePicture";
 import CommentPost from "../models/CommentPost";
 import Notification from "../models/Notification";
 import Setting from "../models/Setting";
-import ProfilePicture from "../models/ProfilePicture";
 
 class CommentPostController {
   async store(req, res) {
