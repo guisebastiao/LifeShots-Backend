@@ -286,7 +286,7 @@ class PostController {
 
   async delete(req, res) {
     try {
-      const { id } = req.body;
+      const { id } = req.params;
       const { username } = req;
 
       const post = await Post.findByPk(id);

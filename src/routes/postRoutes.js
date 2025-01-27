@@ -29,6 +29,6 @@ router.put(
   editPostValidate,
   postController.update
 );
-router.delete("/", loginRequired, postController.delete);
+router.delete("/:id", loginRequired, postController.delete);
 
 export default router;

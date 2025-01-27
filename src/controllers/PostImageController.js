@@ -3,11 +3,12 @@ import fs from "fs";
 
 import PostImage from "../models/PostImage";
 import Post from "../models/Post";
+import User from "../models/User";
 
 class PostImageController {
   async delete(req, res) {
     try {
-      const { id } = req.body;
+      const { id } = req.params;
       const { username } = req;
 
       const postImage = await PostImage.findByPk(id);
@@ -22,13 +23,19 @@ class PostImageController {
 
       if (post.userId !== username) {
         return res.status(401).json({
-          errors: ["Você não tem permissão de excluir a imagem dessa publicação."],
+          errors: [
+            "Você não tem permissão de excluir a imagem dessa publicação.",
+          ],
         });
       }
 
       const { filename } = postImage;
 
-      const filepath = resolve(__dirname, "../../uploads/postImages/", filename);
+      const filepath = resolve(
+        __dirname,
+        "../../uploads/postImages/",
+        filename
+      );
 
       if (fs.existsSync(filepath)) {
         fs.unlinkSync(filepath);
@@ -44,6 +51,9 @@ class PostImageController {
 
       if (countPostImages <= 0) {
         await post.destroy();
+
+        const user = await User.findByPk(username);
+        await user.update({ amountPosts: user.amountPosts - 1 });
 
         return res.json({
           success: ["A imagem da publicação e a publicação foram excluidas."],

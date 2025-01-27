@@ -29,6 +29,6 @@ router.put(
   editStoryValidate,
   storyController.update
 );
-router.delete("/", loginRequired, storyController.delete);
+router.delete("/:id", loginRequired, storyController.delete);
 
 export default router;

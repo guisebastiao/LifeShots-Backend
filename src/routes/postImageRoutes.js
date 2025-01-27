@@ -5,6 +5,6 @@ import loginRequired from "../middlewares/loginRequired";
 
 const router = new Router();
 
-router.delete("/", loginRequired, postImageController.delete);
+router.delete("/:id", loginRequired, postImageController.delete);
 
 export default router;

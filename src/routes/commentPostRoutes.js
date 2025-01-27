@@ -21,6 +21,6 @@ router.put(
   commentValidate,
   commentPostController.update
 );
-router.delete("/", loginRequired, commentPostController.delete);
+router.delete("/:id", loginRequired, commentPostController.delete);
 
 export default router;

@@ -147,7 +147,7 @@ class CommentPostController {
 
   async delete(req, res) {
     try {
-      const { id } = req.body;
+      const { id } = req.params;
       const { username } = req;
 
       const comment = await CommentPost.findByPk(id);
