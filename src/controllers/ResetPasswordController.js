@@ -54,8 +54,9 @@ class ResetPasswordController {
       await transporter.sendMail(mailOptions);
 
       return res.json({
-        success:
+        success: [
           "Um email foi enviado para redefinir sua senha, por favor, verifique seu email.",
+        ],
       });
     } catch (error) {
       console.error("Error in ResetPasswordController - Store", error);
