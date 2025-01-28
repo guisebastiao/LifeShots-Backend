@@ -153,12 +153,13 @@ class CommentPostController {
       const comment = await CommentPost.findByPk(id);
       const post = await Post.findByPk(comment.postId);
 
-      if (post.userId !== username || comment.userId !== username) {
+      if (post.userId !== username && comment.userId !== username) {
         return res.status(401).json({
           errors: ["Você não tem permissão de excluir esse comentário."],
         });
       }
 
+      await post.update({ amountComments: post.amountComments - 1 });
       await comment.destroy();
 
       return res.json({

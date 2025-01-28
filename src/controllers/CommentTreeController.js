@@ -162,12 +162,17 @@ class CommentTreeController {
 
       const commentTree = await CommentTree.findByPk(id);
       const post = await Post.findByPk(commentTree.postId);
+      const comment = await CommentPost.findByPk(commentTree.commentId);
 
-      if (post.userId !== username || commentTree.userId !== username) {
+      if (post.userId !== username && commentTree.userId !== username) {
         return res.status(401).json({
           errors: ["Você não tem permissão de excluir esse comentário."],
         });
       }
+
+      await comment.update({
+        amountCommentTree: comment.amountCommentTree - 1,
+      });
 
       await commentTree.destroy();
 
