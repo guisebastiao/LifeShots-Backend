@@ -5,6 +5,7 @@ import loginRequired from "../middlewares/loginRequired";
 
 const router = new Router();
 
+router.get("/", loginRequired, settingController.show);
 router.put("/", loginRequired, settingController.update);
 
 export default router;
