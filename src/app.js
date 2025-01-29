@@ -39,7 +39,7 @@ import recommendedUsersRoutes from "./routes/recommendedUsersRoutes";
 import settingRoutes from "./routes/settingRoutes";
 import notificationRoutes from "./routes/notificationRoutes";
 
-const whitelist = ["http://localhost:5173", "http://192.168.18.78:5173"];
+const whitelist = ["http://localhost:5173"];
 
 const corsOptions = {
   methods: ["GET", "POST", "PUT", "DELETE"],
