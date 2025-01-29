@@ -98,6 +98,27 @@ class PostController {
             as: "postImages",
             attributes: ["id", "filename", "url"],
           },
+          {
+            model: LikePost,
+            as: "likes",
+            order: [["createdAt", "DESC"]],
+            attributes: ["userId"],
+            limit: 1,
+            include: [
+              {
+                model: User,
+                as: "userLikedPost",
+                attributes: ["username", "privateAccount"],
+                include: [
+                  {
+                    model: ProfilePicture,
+                    as: "profilePicture",
+                    attributes: ["filename", "url"],
+                  },
+                ],
+              },
+            ],
+          },
         ],
       });
 
@@ -126,7 +147,7 @@ class PostController {
 
       const { privateAccount } = await User.findByPk(userId);
 
-      if (privateAccount && !follow) {
+      if (privateAccount && !follow && userId !== username) {
         return res.status(401).json({
           errors: [
             "Você não tem permissão de visualizar as publicações desse usuário.",
